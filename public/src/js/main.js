@@ -1,8 +1,3 @@
-
-import {App} from './app.js';
-import formSignIn from '../htmls/formSignIn.js'
-App('#app',formSignIn);
-
 const btnLogin = document.getElementById('login');
 const btnSignUp = document.getElementById("signUp");
 const pRtaSignUp=document.getElementById("respuestaSignUp")
