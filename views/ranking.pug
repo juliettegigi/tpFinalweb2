@@ -1,0 +1,22 @@
+- let filas=""
+- let i=1;
+
+each elem in arrRank
+    tr(class="fila" ,id=elem.usuario)
+        th(scope="row")
+           =i
+           - i++
+        td(class="shadow")= elem.usuario
+        td= elem.correctas
+        td= elem.duracionTotal
+      
+    tr(class=elem.usuario)
+        th(colspan="4") Tiempo por pregunta
+    tr(class=elem.usuario)
+        td(colspan="4")=`${elem.p1}-${elem.p2}-${elem.p3}-${elem.p4}-${elem.p5}`
+    tr(class=elem.usuario)       
+        td(colspan="4")=`${elem.p6}-${elem.p7}-${elem.p8}-${elem.p9}-${elem.p10}` 
+    tr(class=elem.usuario)       
+        td(colspan="4")
+           b Promedio:#{elem.promedio}
+    
