@@ -7,22 +7,32 @@ const btnLogin = document.getElementById('login');
 const btnSignUp = document.getElementById("signUp");
 const pRtaSignUp=document.getElementById("respuestaSignUp")
 
-var url = (window.location.hostname.includes('localhost'))
-    ? 'http://localhost:8080'
-    : 'https://web2tp.onrender.com';
+var url ='http://localhost:8080'
+
+
+const validar=(usuario,pass)=>{
+    let error=false;
+    if (pass.length<6){
+        document.getElementById("errorPass").style.display="block"
+        error=true;
+    } 
+    else{
+        document.getElementById("errorPass").style.display="none"
+        
+    }
+    if(usuario.trim().length<2){
+            document.getElementById("errorUsuario").style.display="block"
+            error=true;
+        }
+    else document.getElementById("errorUsuario").style.display="none"
+    if(error)return;
+}   
 
 btnLogin.addEventListener('click', e => {
     const usuario = document.getElementById('usuario').value;
     const pass = document.getElementById('pass').value;
-    if (pass.length<6){
-        pRtaSignUp.classList.remove('col');
-        pRtaSignUp.classList.add('col-12');
-        pRtaSignUp.innerHTML=`<p >👆</p>
-        <p class="text-success">Password incorrecta</p> `
-        return
-    }
-   
-   
+   validar(usuario,pass);
+   pRtaSignUp.innerHTML="";
     fetch(url+"/login", {
         method: 'post',
         headers:{"Content-Type":"application/json"},
@@ -35,16 +45,26 @@ btnLogin.addEventListener('click', e => {
             window.location="/juego"
             }}
             else{
+                if(rta.msg==='El nombre de usuario no pertenece a nuestro registro.'){
+                   const errorDiv=document.getElementById('errorUsuario');
+                   errorDiv.innerHTML="👆 "+rta.msg;
+                   errorDiv.style.display="block"
+                }
+                else if(rta.msg==='La password no coincide con el usuario.'){
+                    const errorDiv=document.getElementById('errorPass')
+                    errorDiv.innerHTML="👆 "+rta.msg;
+                   errorDiv.style.display="block"
+                }else{
                 pRtaSignUp.classList.remove('col');
                 pRtaSignUp.classList.add('col-12');
                 pRtaSignUp.innerHTML=`<p >👆</p>
                 <p class="text-success">${rta.msg}</p> `
             }
+            }
             
         })
         .catch(err=>{
             console.log(err);
-            alert(err)
          })  
     
 
@@ -55,7 +75,7 @@ btnLogin.addEventListener('click', e => {
 btnSignUp.addEventListener('click', e => {
         const usuario = document.getElementById('usuario').value;
         const pass = document.getElementById('pass').value;
-       
+        validar(usuario,pass); pRtaSignUp.innerHTML="";
         fetch(url+'/api/user', {
             method: 'post',
             headers:{"Content-Type":"application/json"},

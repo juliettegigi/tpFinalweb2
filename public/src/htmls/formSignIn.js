@@ -1,16 +1,19 @@
 const html=`<div class="row justify-content-md-center py-4">
     <div  class="col-lg-4 col-md-6 col-sm-12">
         <main class="form-signin w-100 m-auto">
+        <form class='needs-validation' novalidate name="formu">
           <div class="d-grid">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="usuario" placeholder="usuario">
+              <input type="text" class="form-control" id="usuario" placeholder="usuario" required>
               <label for="usuario">Nombre de usuario</label>
+              <div class="invalid-feedback" id="errorUsuario">👆 Usuario inválido. </div>
             </div>
             <div class="form-floating py-2">
-              <input type="password" class="form-control" id="pass" placeholder="Password">
-              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="pass" placeholder="Password" required>
+              <label for="pass">Password</label>              
+              <div class="invalid-feedback" id="errorPass">👆 Password inválida. </div>
             </div>
         
         
@@ -37,6 +40,7 @@ const html=`<div class="row justify-content-md-center py-4">
               </div>
             </div>
           </div>
+          </form>
         </main>
     </div>
 </div>`
